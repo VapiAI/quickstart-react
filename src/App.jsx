@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import ActiveCallDetail from "./components/ActiveCallDetail";
 import Button from "./components/base/Button";
 import Vapi from "@vapi-ai/web";
+import { isPublicKeyMissingError } from "./utils";
 
 // Put your Vapi Public Key below.
 const vapi = new Vapi("0000XXXX-XXXX-XXXX-XXXX-XXXXXXXX0000");
@@ -14,16 +15,22 @@ const App = () => {
   const [assistantIsSpeaking, setAssistantIsSpeaking] = useState(false);
   const [volumeLevel, setVolumeLevel] = useState(0);
 
+  const { showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage } = usePublicKeyInvalid();
+
   // hook into Vapi events
   useEffect(() => {
     vapi.on("call-start", () => {
       setConnecting(false);
       setConnected(true);
+
+      setShowPublicKeyInvalidMessage(false);
     });
 
     vapi.on("call-end", () => {
       setConnecting(false);
       setConnected(false);
+
+      setShowPublicKeyInvalidMessage(false);
     });
 
     vapi.on("speech-start", () => {
@@ -37,6 +44,18 @@ const App = () => {
     vapi.on("volume-level", (level) => {
       setVolumeLevel(level);
     });
+
+    vapi.on("error", (error) => {
+      console.error(error);
+
+      setConnecting(false);
+      if (isPublicKeyMissingError({ vapiError: error })) {
+        setShowPublicKeyInvalidMessage(true);
+      }
+    });
+
+    // we only want this to fire on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // call start handler
@@ -72,6 +91,7 @@ const App = () => {
         />
       )}
 
+      {showPublicKeyInvalidMessage ? <PleaseSetYourPublicKeyMessage /> : null}
       <ReturnToDocsLink />
     </div>
   );
@@ -136,10 +156,46 @@ order, then end the conversation.
   },
 };
 
+const usePublicKeyInvalid = () => {
+  const [showPublicKeyInvalidMessage, setShowPublicKeyInvalidMessage] = useState(false);
+
+  // close public key invalid message after delay
+  useEffect(() => {
+    if (showPublicKeyInvalidMessage) {
+      setTimeout(() => {
+        setShowPublicKeyInvalidMessage(false);
+      }, 3000);
+    }
+  }, [showPublicKeyInvalidMessage]);
+
+  return {
+    showPublicKeyInvalidMessage,
+    setShowPublicKeyInvalidMessage,
+  };
+};
+
+const PleaseSetYourPublicKeyMessage = () => {
+  return (
+    <div
+      style={{
+        position: "fixed",
+        bottom: "25px",
+        left: "25px",
+        padding: "10px",
+        color: "#fff",
+        backgroundColor: "#f03e3e",
+        borderRadius: "5px",
+        boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
+      }}
+    >
+      Is your Vapi Public Key missing? (recheck your code)
+    </div>
+  );
+};
+
 const ReturnToDocsLink = () => {
   return (
     <a
-      className="App-link"
       href="https://docs.vapi.ai"
       target="_blank"
       rel="noopener noreferrer"
