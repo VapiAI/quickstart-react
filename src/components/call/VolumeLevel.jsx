@@ -16,7 +16,7 @@ const VolumeLevel = ({ volume }) => {
               width: "20px",
               height: "20px",
               margin: "2px",
-              backgroundColor: i / numBars < volume ? "blue" : "white",
+              backgroundColor: i / numBars < volume ? "#3ef07c" : "white",
               borderRadius: "2px",
             }}
           />

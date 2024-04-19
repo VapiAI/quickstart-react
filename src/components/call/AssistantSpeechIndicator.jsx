@@ -7,7 +7,7 @@ const AssistantSpeechIndicator = ({ isSpeaking }) => {
         style={{
           width: "20px",
           height: "20px",
-          backgroundColor: isSpeaking ? "green" : "red",
+          backgroundColor: isSpeaking ? "#3ef07c" : "##f03e3e",
           marginRight: "10px",
           borderRadius: "4px",
         }}
