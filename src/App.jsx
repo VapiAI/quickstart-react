@@ -4,7 +4,8 @@ import ActiveCallDetail from "./components/ActiveCallDetail";
 import Button from "./components/base/Button";
 import Vapi from "@vapi-ai/web";
 
-const vapi = new Vapi("761b60fa-3053-4636-b39e-ad0ea08e64f6"); // vapi demo key
+// Put your Vapi Public Key below.
+const vapi = new Vapi("0000XXXX-XXXX-XXXX-XXXX-XXXXXXXX0000");
 
 const App = () => {
   const [connecting, setConnecting] = useState(false);
