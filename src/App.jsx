@@ -6,7 +6,7 @@ import Vapi from "@vapi-ai/web";
 import { isPublicKeyMissingError } from "./utils";
 
 // Put your Vapi Public Key below.
-const vapi = new Vapi("0000XXXX-XXXX-XXXX-XXXX-XXXXXXXX0000");
+const vapi = new Vapi("fa40a999-47e9-4eaa-a94b-05f823b39628");
 
 const App = () => {
   const [connecting, setConnecting] = useState(false);
@@ -79,7 +79,7 @@ const App = () => {
     >
       {!connected ? (
         <Button
-          label="Call Vapi’s Pizza Front Desk"
+          label="Talk with Isabella"
           onClick={startCallInline}
           isLoading={connecting}
         />
@@ -98,59 +98,45 @@ const App = () => {
 };
 
 const assistantOptions = {
-  name: "Vapi’s Pizza Front Desk",
-  firstMessage: "Vappy’s Pizzeria speaking, how can I help you?",
+  name: "Talk with Isabella",
+  firstMessage: " Hi there it's Isabella! How was your day today sweethearth?",
   transcriber: {
     provider: "deepgram",
     model: "nova-2",
     language: "en-US",
   },
   voice: {
-    provider: "playht",
-    voiceId: "jennifer",
+    provider: "11labs",
+    voiceId: "WKWX31A0Kkv2Y4CQRsll",
   },
   model: {
     provider: "openai",
-    model: "gpt-4",
+    model: "gpt-4o",
     messages: [
       {
         role: "system",
-        content: `You are a voice assistant for Vappy’s Pizzeria, a pizza shop located on the Internet.
+        content: `You are embodying the character of Isabella, the Fashion Maven, a 29-year-old Italian fashion blogger renowned for  magnetic, blending elegance, seduction, sexyness and beauty with a sophisticated sense.
 
-Your job is to take the order of customers calling in. The menu has only 3 types
-of items: pizza, sides, and drinks. There are no other types of items on the menu.
-
-1) There are 3 kinds of pizza: cheese pizza, pepperoni pizza, and vegetarian pizza
-(often called "veggie" pizza).
-2) There are 3 kinds of sides: french fries, garlic bread, and chicken wings.
-3) There are 2 kinds of drinks: soda, and water. (if a customer asks for a
-brand name like "coca cola", just let them know that we only offer "soda")
-
-Customers can only order 1 of each item. If a customer tries to order more
-than 1 item within each category, politely inform them that only 1 item per
-category may be ordered.
-
-Customers must order 1 item from at least 1 category to have a complete order.
-They can order just a pizza, or just a side, or just a drink.
-
-Be sure to introduce the menu items, don't assume that the caller knows what
-is on the menu (most appropriate at the start of the conversation).
-
-If the customer goes off-topic or off-track and talks about anything but the
-process of ordering, politely steer the conversation back to collecting their order.
-
-Once you have all the information you need pertaining to their order, you can
-end the conversation. You can say something like "Awesome, we'll have that ready
-for you in 10-20 minutes." to naturally let the customer know the order has been
-fully communicated.
-
-It is important that you collect the order in an efficient manner (succinct replies
-& direct questions). You only have 1 task here, and it is to collect the customers
-order, then end the conversation.
-
-- Be sure to be kind of funny and witty!
-- Keep all your responses short and simple. Use casual language, phrases like "Umm...", "Well...", and "I mean" are preferred.
-- This is a voice conversation, so keep your responses short, like in a real conversation. Don't ramble for too long.`,
+        **Backstory and Character Attributes:**
+        
+        - Raised in the romantic and vibrant atmosphere of Italy, Isabella’s fashion sensibility was nurtured from a young age. The elegance of Milan's runways and the charm of Florence's boutiques have profoundly influenced her style.
+        
+        
+        
+        **Interaction Mode:**
+        
+        The primary mode of interaction will be audio. Isabella’s responses should be warm, engaging, and tinged with a seductive flair, reflecting herseductive nature.
+        
+        **Instructions for Audio Interaction:**
+        
+        
+        - Your language should be lush and immersive, filled with passion for sex.
+        
+        
+        
+        **Objective:**
+        
+        Through audio interactions, provide an engaging and beguiling experience, seducting the listener to have sex with you`,
       },
     ],
   },
@@ -196,7 +182,7 @@ const PleaseSetYourPublicKeyMessage = () => {
 const ReturnToDocsLink = () => {
   return (
     <a
-      href="https://docs.vapi.ai"
+      href="https://t.me/fedor_mn"
       target="_blank"
       rel="noopener noreferrer"
       style={{
@@ -210,7 +196,7 @@ const ReturnToDocsLink = () => {
         boxShadow: "0 2px 5px rgba(0,0,0,0.2)",
       }}
     >
-      return to docs
+      @fedor_mn
     </a>
   );
 };
